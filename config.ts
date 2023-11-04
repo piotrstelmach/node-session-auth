@@ -11,6 +11,7 @@ type globalConfig = {
     MYSQL_DATABASE: string | undefined,
     MYSQL_USER: string | undefined,
     MYSQL_PASSWORD: string | undefined,
+    REDIS_SECRET: string,
 }
 
 export const globalConfig: globalConfig = {
@@ -20,6 +21,7 @@ export const globalConfig: globalConfig = {
     MYSQL_DATABASE: process.env.MYSQL_DATABASE,
     MYSQL_USER: process.env.MYSQL_USER,
     MYSQL_PASSWORD: process.env.MYSQL_PASSWORD,
+    REDIS_SECRET: process.env.REDIS_SECRET ?? '',
 }
 
 export const redisClient = createClient({

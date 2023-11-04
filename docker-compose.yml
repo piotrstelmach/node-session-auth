@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:8.1.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8080:8080'
+
+  redis:
+    image: redis:6.0.9
+    restart: always
+    ports:
+      - '6379:6379'
+    expose:
+      - '6379'
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
+  my-db:

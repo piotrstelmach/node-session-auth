@@ -1,9 +1,9 @@
 import express, {Express, Request, Response, Application} from 'express';
 import dotenv from 'dotenv';
-import {redisClient} from "./config";
+import {prismaClient, redisClient} from "./config";
 import RedisStore from "connect-redis";
 import session from "express-session";
-import { globalConfig } from "./config";
+import {globalConfig} from "./config";
 
 dotenv.config();
 
@@ -20,6 +20,8 @@ app.use(session({
     saveUninitialized: false, // recommended: only save session when data exists
     secret: globalConfig.REDIS_SECRET,
 }));
+
+prismaClient.$connect().then(() => console.log('Prisma connected!')).catch(console.error)
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to Express & TypeScript Server');

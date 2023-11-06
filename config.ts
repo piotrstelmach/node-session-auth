@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import RedisStore from "connect-redis";
+import { PrismaClient } from '@prisma/client';
 import {createClient} from "redis";
 
 dotenv.config();
@@ -27,3 +27,5 @@ export const globalConfig: globalConfig = {
 export const redisClient = createClient({
     url: `redis://${globalConfig.REDIS_HOST}:${globalConfig.REDIS_PORT}`
 })
+
+export const prismaClient = new PrismaClient();

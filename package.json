@@ -16,6 +16,7 @@
   "author": "Piotr Stelmach",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.5.2",
     "connect-redis": "^7.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -29,6 +30,7 @@
     "@types/express": "^4.17.20",
     "@types/express-session": "^1.17.9",
     "@types/node": "^20.8.10",
+    "prisma": "^5.5.2",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"

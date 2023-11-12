@@ -4,11 +4,14 @@ import { prismaClient, redisClient } from './config';
 import RedisStore from 'connect-redis';
 import session from 'express-session';
 import { globalConfig } from './config';
+import { authRouter } from './routes/auth';
 
 dotenv.config();
 
 const app: Application = express();
 const port = process.env.PORT || 8000;
+
+app.use(express.json());
 
 redisClient
   .connect()
@@ -30,6 +33,8 @@ prismaClient
   .$connect()
   .then(() => console.log('Prisma connected!'))
   .catch(console.error);
+
+app.use('/auth', authRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to Express & TypeScript Server');

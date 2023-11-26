@@ -2,7 +2,7 @@ import { ZodError, ZodIssue, ZodSchema } from 'zod';
 import { NextFunction, Response } from 'express';
 import { ErrorResponse, TypedRequestBody } from '../types/global';
 
-type validateFunction = <T>(
+type validateRequestBodyType = <T>(
   schema: ZodSchema
 ) => (
   req: TypedRequestBody<T>,
@@ -10,7 +10,7 @@ type validateFunction = <T>(
   next: NextFunction
 ) => Promise<void>;
 
-export const validate: validateFunction =
+export const validateRequestBody: validateRequestBodyType =
   <T>(schema: ZodSchema) =>
   async (
     req: TypedRequestBody<T>,
@@ -28,8 +28,10 @@ export const validate: validateFunction =
           error: 'Validation error',
           details: error.errors.map((err: ZodIssue) => err.message).join(),
         });
+        return;
       } else {
-        res.status(400).json({ error: 'Internal server error' });
+        res.status(400).json({ error: 'Request type error' });
+        return;
       }
     }
   };
